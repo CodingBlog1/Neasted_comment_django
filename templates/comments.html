@@ -1,0 +1,112 @@
+<!-- comments.html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+</head>
+<body>
+    <h1>Comments</h1>
+    <form method="post" action="{% url 'comment_view' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Post Comment">
+    </form>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                {{ comment.text }}
+                <a href="#comment-form" data-toggle="collapse" data-target="#reply-form-{{ comment.id }}">Reply</a>
+                <div id="reply-form-{{ comment.id }}" class="collapse">
+                    <form method="post" action="{% url 'comment_view' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        {{ form.as_p }}
+                        <input type="submit" value="Post Reply">
+                    </form>
+                </div>
+                {% if comment.replies.all %}
+                    <ul>
+                        {% for reply in comment.replies.all %}
+                            <li>{{ reply.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html> -->
+
+
+
+<!-- comments.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments</title>
+</head>
+<body>
+    <h1>Comments</h1>
+    <form method="post" action="{% url 'comment_view' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Post Comment">
+    </form>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                {{ comment.text }}
+                <a href="#comment-form" data-toggle="collapse" data-target="#reply-form-{{ comment.id }}">Reply</a>
+                <div id="reply-form-{{ comment.id }}" class="collapse">
+                    <form method="post" action="{% url 'comment_view' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        {{ form.as_p }}
+                        <input type="submit" value="Post Reply">
+                    </form>
+                </div>
+
+
+
+
+
+
+
+
+                {% for rep in comment.replies.all %}
+                <li>
+
+                {{ rep.text }}
+                <a href="#comment-form" data-toggle="collapse" data-target="#reply-form-{{ comment.id }}">Reply</a>
+                <div id="reply-form-{{ comment.id }}" class="collapse">
+                    <form method="post" action="{% url 'comment_view' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                        {{ form.as_p }}
+                        <input type="submit" value="Post Reply">
+                    </form>
+                </div>
+                </li>
+
+                {% endfor %}
+
+
+
+
+
+
+<!--                 
+                {% if comment.replies.all %}
+                    <ul>
+                        {% for reply in comment.replies.all %}
+                            <li>{{ reply.text }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %} -->
+            </li>
+            
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
